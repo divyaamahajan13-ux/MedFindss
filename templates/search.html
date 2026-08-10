@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MedFind - Search Results</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background: #f5f7fa;
+        }
+
+        h1 {
+            color: #1b6ca8;
+        }
+
+        .search-box {
+            margin-bottom: 25px;
+        }
+
+        input {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 18px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .medicine {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #ccc;
+        }
+
+        .medicine h2 {
+            color: #176b87;
+        }
+
+        .info {
+            margin: 8px 0;
+        }
+
+        .available {
+            color: green;
+            font-weight: bold;
+        }
+
+        .out-stock {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🏥 MedFind</h1>
+
+<h2>Medicine Search</h2>
+
+<form method="GET" action="/search/">
+
+    <input
+        type="text"
+        name="q"
+        value="{{ query }}"
+        placeholder="Search medicine..."
+        required
+    >
+
+    <button type="submit">🔍 Search</button>
+
+</form>
+
+<hr>
+
+<h2>Search results for "{{ query }}"</h2>
+
+{% if medicines %}
+
+    {% for medicine in medicines %}
+
+        <div class="medicine">
+
+            <h2>💊 {{ medicine.name }}</h2>
+
+            <p class="info">
+                💰 <strong>Price:</strong> ₹{{ medicine.price }}
+            </p>
+
+            <p class="info">
+                📦 <strong>Stock:</strong> {{ medicine.stock }}
+            </p>
+
+            {% if medicine.stock > 0 %}
+                <p class="available">✅ Available in Stock</p>
+            {% else %}
+                <p class="out-stock">❌ Out of Stock</p>
+            {% endif %}
+
+            <p class="info">
+                🏪 <strong>Medical Store:</strong> {{ medicine.store_name }}
+            </p>
+
+            <p class="info">
+                📍 <strong>Location:</strong> {{ medicine.location }}
+            </p>
+
+            <p class="info">
+                📞 <strong>Contact:</strong> {{ medicine.contact }}
+            </p>
+
+        </div>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>❌ No medicines found.</p>
+
+{% endif %}
+
+<br>
+
+<a href="/">← Back to Home</a>
+
+</body>
+</html>
