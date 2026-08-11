@@ -14,7 +14,6 @@ def register(request):
             user = form.save()
             login(request, user)
             return redirect("home")
-
     else:
         form = UserCreationForm()
 
@@ -29,7 +28,6 @@ def user_login(request):
             user = form.get_user()
             login(request, user)
             return redirect("home")
-
     else:
         form = AuthenticationForm()
 
