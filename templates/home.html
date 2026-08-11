@@ -1,24 +1,226 @@
-<form method="GET" action="/search/">
+<!DOCTYPE html>
+<html lang="en">
 
-    <input
-        type="text"
-        name="q"
-        placeholder="Search medicine..."
-        required
-    >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <button type="submit">🔍 Search Medicine</button>
+    <title>MedFindss - Find Medicines Easily</title>
 
-</form>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-<br>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #e8f8f5, #f4fbff);
+            min-height: 100vh;
+            color: #1f2937;
+        }
 
-<a href="/nearby-stores/">
-    📍 Nearby Medical Stores
-</a>
+        .navbar {
+            background: #0f766e;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
 
-<br><br>
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
 
-<a href="/admin/">
-    ⚙️ Admin Panel
-</a>
+        .tagline {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px 50px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            color: #115e59;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 19px;
+            color: #64748b;
+            margin-bottom: 35px;
+        }
+
+        .search-box {
+            background: white;
+            max-width: 650px;
+            margin: auto;
+            padding: 12px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.10);
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #0f766e;
+        }
+
+        .search-box button {
+            padding: 16px 22px;
+            background: #0f766e;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background: #115e59;
+        }
+
+        .cards {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            color: #115e59;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .card a {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #0f766e;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .card a:hover {
+            background: #115e59;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+        }
+
+        @media (max-width: 700px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">💊 MedFindss</div>
+        <div class="tagline">Find medicines near you</div>
+    </nav>
+
+    <section class="hero">
+
+        <h1>Find Your Medicine</h1>
+
+        <p>
+            Search for medicines and discover nearby medical stores.
+        </p>
+
+        <form action="{% url 'search' %}" method="GET" class="search-box">
+
+            <input
+                type="text"
+                name="q"
+                placeholder="Search medicine..."
+                required
+            >
+
+            <button type="submit">
+                🔍 Search Medicine
+            </button>
+
+        </form>
+
+    </section>
+
+    <section class="cards">
+
+        <div class="card">
+            <h2>📍 Nearby Medical Stores</h2>
+
+            <p>
+                Find medical stores near your location.
+            </p>
+
+            <a href="{% url 'nearby_stores' %}">
+                Find Nearby Stores
+            </a>
+        </div>
+
+        <div class="card">
+            <h2>⚙️ Admin Panel</h2>
+
+            <p>
+                Manage medicines and store information.
+            </p>
+
+            <a href="/admin/">
+                Open Admin Panel
+            </a>
+        </div>
+
+    </section>
+
+    <footer>
+        © 2026 MedFindss · Medicine Finder
+    </footer>
+
+</body>
+
+</html>
