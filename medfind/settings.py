@@ -8,20 +8,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY
 SECRET_KEY = os.environ.get(
     "SECRET_KEY",
-    "django-insecure-development-key-change-in-production"
+    "django-insecure-medfind-development-key"
 )
 
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = [
-    "medfindss.onrender.com",
-    "localhost",
-    "127.0.0.1",
-]
+ALLOWED_HOSTS = ["*"]
 
 
-# Application definition
-
+# APPLICATIONS
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -34,8 +29,10 @@ INSTALLED_APPS = [
 ]
 
 
+# MIDDLEWARE
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+
     "whitenoise.middleware.WhiteNoiseMiddleware",
 
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -47,15 +44,17 @@ MIDDLEWARE = [
 ]
 
 
+# URL CONFIGURATION
 ROOT_URLCONF = "medfind.urls"
 
 
+# TEMPLATES
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
 
         "DIRS": [
-            BASE_DIR / "templates"
+            BASE_DIR / "templates",
         ],
 
         "APP_DIRS": True,
@@ -71,12 +70,17 @@ TEMPLATES = [
 ]
 
 
+# WSGI
 WSGI_APPLICATION = "medfind.wsgi.application"
 
 
-# ============================================================
 # DATABASE
-# ============================================================
+#
+# Render:
+#     DATABASE_URL = PostgreSQL URL
+#
+# Local:
+#     If DATABASE_URL is not set, SQLite will be used.
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
@@ -89,7 +93,6 @@ if DATABASE_URL:
         )
     }
 else:
-    # Local development
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -98,10 +101,7 @@ else:
     }
 
 
-# ============================================================
 # PASSWORD VALIDATION
-# ============================================================
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": (
@@ -130,23 +130,17 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# ============================================================
 # INTERNATIONALIZATION
-# ============================================================
-
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Kolkata"
 
 USE_I18N = True
 
 USE_TZ = True
 
 
-# ============================================================
 # STATIC FILES
-# ============================================================
-
 STATIC_URL = "/static/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -156,26 +150,11 @@ STATICFILES_STORAGE = (
 )
 
 
-# ============================================================
-# SECURITY / CSRF
-# ============================================================
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://medfindss.onrender.com",
-]
-
-
-# ============================================================
 # DEFAULT PRIMARY KEY
-# ============================================================
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# ============================================================
 # LOGIN / LOGOUT
-# ============================================================
-
 LOGIN_URL = "/login/"
 
 LOGIN_REDIRECT_URL = "/"
